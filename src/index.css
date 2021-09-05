@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+*{
+  text-align: center;
+}
+
+header{
+  height: 100px;
+  background-color: burlywood;
+}
+
+header h1 {
+  position: relative;
+  top: 20px;
+}
+
+footer{
+height: 75px;
+background-color: chocolate;
+
+}
+
+footer span {
+  position: relative;
+  top: 20px;
+}
+
+h3 {
+  text-align: left;
+  margin: 25px;
+}
