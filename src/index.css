@@ -37,7 +37,12 @@ footer span {
   top: 20px;
 }
 
-h3 {
+h3, h4{
   text-align: left;
   margin: 25px;
+}
+
+
+.mn{
+  height: 70vw;
 }
