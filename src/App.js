@@ -1,7 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Form, Image, Modal } from "react-bootstrap";
+import { Button, Form, Image, Modal, Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
+import Weather from "./Weather";
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class App extends React.Component {
       displayErr: false,
       displayMap: false,
       zoom: 12,
-      stop : true
+      date : '',
+      description: "",
+      stop: true
     };
   }
   handler = async (event) => {
@@ -21,7 +24,6 @@ class App extends React.Component {
     let place = event.target.place.value;
     let key = "pk.34988b0bc40a3e688d8e314c72b7b68a";
     let URL = `https://eu1.locationiq.com/v1/search.php?key=${key}&q=${place}&format=json`;
-    console.log(this.state);
     try {
       let recData = await axios.get(URL);
       this.setState({
@@ -34,7 +36,9 @@ class App extends React.Component {
       this.setState({
         displayErr: true,
       });
+      console.log(this.state);
     }
+    
   };
   increase = () => {
     this.setState({
@@ -52,8 +56,9 @@ class App extends React.Component {
         <header>
           <h1>City Explorer </h1>
         </header>
-
-        <main>
+        <Container>
+        <main class='mn'>
+          
           <h3>Find the location you want:-</h3>
           <Form onSubmit={this.handler}>
             <Form.Group controlId="formGridEmail">
@@ -64,7 +69,7 @@ class App extends React.Component {
                 name="place"
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" className='mt-25'>
               Submit
             </Button>
           </Form>
@@ -74,32 +79,54 @@ class App extends React.Component {
               {this.state.placeName} is in {this.state.lat} by {this.state.lon}
             </p>
           )}
+          <Row>
+            <Col>
+            
           {this.state.displayMap && (
             <Image
               src={`https://maps.locationiq.com/v3/staticmap?key=pk.34988b0bc40a3e688d8e314c72b7b68a&center=${this.state.lat},${this.state.lon}&zoom=${this.state.zoom}&size=600x250`}
               rounded
             />
           )}
-          {this.state.zoom && 
-
-          <Button variant="primary" onClick={this.decrease}>
-            -
-          </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+          {this.state.displayMap && 
+            <Button variant="primary" onClick={this.decrease}>
+              -
+            </Button>
           }
-          <Button variant="primary" onClick={this.increase}>
+            
+            </Col>
+            <Col>{this.state.displayMap &&<p> Zoom </p>}</Col>
+            <Col>
+          {this.state.displayMap &&<Button variant="primary" onClick={this.increase}>
             +
-          </Button>
+          </Button>}
+    
+            </Col>
+          </Row>
+          
+          {this.state.displayMap && <Weather place={this.state.placeName} lat={this.state.lat} lon={this.state.lon} />}
         </main>
+        </Container>
+        
+        
         <footer>
           <span> Omar 2021 C</span>
         </footer>
 
-        {this.state.displayErr && <><Modal show={true}>
-        <Modal.Header >
-          <Modal.Title>Unable to geocode</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Status Code: 400, 404, 500</Modal.Body>
-      </Modal></>}
+        {this.state.displayErr && (
+          <>
+            <Modal show={true}>
+              <Modal.Header>
+                <Modal.Title>Unable to geocode</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Status Code: 400, 404, 500</Modal.Body>
+            </Modal>
+          </>
+        )}
       </>
     );
   }
