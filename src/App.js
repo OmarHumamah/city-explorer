@@ -19,7 +19,7 @@ class App extends React.Component {
   handler = async (event) => {
     event.preventDefault();
     let place = event.target.place.value;
-    let key = "pk.0dd875258df1a0fba7e09164feca3b48";
+    let key = "pk.34988b0bc40a3e688d8e314c72b7b68a";
     let URL = `https://eu1.locationiq.com/v1/search.php?key=${key}&q=${place}&format=json`;
     console.log(this.state);
     try {
@@ -76,7 +76,7 @@ class App extends React.Component {
           )}
           {this.state.displayMap && (
             <Image
-              src={`https://maps.locationiq.com/v3/staticmap?key=pk.0dd875258df1a0fba7e09164feca3b48&center=${this.state.lat},${this.state.lon}&zoom=${this.state.zoom}&size=600x250`}
+              src={`https://maps.locationiq.com/v3/staticmap?key=pk.34988b0bc40a3e688d8e314c72b7b68a&center=${this.state.lat},${this.state.lon}&zoom=${this.state.zoom}&size=600x250`}
               rounded
             />
           )}
