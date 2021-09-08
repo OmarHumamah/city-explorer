@@ -31,10 +31,8 @@ class App extends React.Component {
   handler = async (event) => {
     event.preventDefault();
     let place = event.target.place.value;
-    let key =
-      process.env.REACT_APP_CITY_KEY || "pk.43fed3791d35ddb76aa14f749c6d3080";
-    console.log(key);
-    let URL = `https://eu1.locationiq.com/v1/search.php?key=${key}&q=${place}&format=json`;
+    
+    let URL = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${place}&format=json`;
     await axios.get(URL).then(async (result) => {
       this.setState({
         lat: result.data[0].lat,
@@ -98,7 +96,7 @@ class App extends React.Component {
               <Col>
                 {this.state.displayMap && (
                   <Image
-                    src={`https://maps.locationiq.com/v3/staticmap?key=pk.43fed3791d35ddb76aa14f749c6d3080&center=${this.state.lat},${this.state.lon}&zoom=${this.state.zoom}&size=600x250`}
+                    src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.lat},${this.state.lon}&zoom=${this.state.zoom}&size=600x250`}
                     rounded
                   />
                 )}
@@ -134,7 +132,7 @@ class App extends React.Component {
         </Container>
 
         <footer>
-          <span> Omar 2021 C</span>
+          <span> &copy; Omar 2021 </span>
         </footer>
 
         {this.state.displayErr && (
